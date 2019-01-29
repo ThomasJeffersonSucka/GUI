@@ -566,7 +566,7 @@ function Show-test3_psf {
 	$buttonAccountLocked_Click={
 		#TODO: Place custom script here
 		$identity = $textbox1.Text
-		if (Get-ADUser -identity $identity -Properties * | Select-Object LockedOut) {$textbox2.Text = 'Yes'} else {$textbox2.Text = 'No'}
+		if ((Get-ADUser -identity $identity -Properties * | Select-Object LockedOut) -eq 'True) {$textbox2.Text = 'Yes'} else {$textbox2.Text = 'No'}
 		
 	}
 	
