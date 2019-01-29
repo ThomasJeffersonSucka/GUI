@@ -1,0 +1,1521 @@
+#----------------------------------------------
+#region Application Functions
+#----------------------------------------------
+
+#endregion Application Functions
+
+#----------------------------------------------
+# Generated Form Function
+#----------------------------------------------
+function Show-test3_psf {
+
+	#----------------------------------------------
+	#region Import the Assemblies
+	#----------------------------------------------
+	[void][reflection.assembly]::Load('System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089')
+	[void][reflection.assembly]::Load('System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a')
+	#endregion Import Assemblies
+
+	#----------------------------------------------
+	#region Generated Form Objects
+	#----------------------------------------------
+	[System.Windows.Forms.Application]::EnableVisualStyles()
+	$form1 = New-Object 'System.Windows.Forms.Form'
+	$tabcontrol1 = New-Object 'System.Windows.Forms.TabControl'
+	$tabpage1 = New-Object 'System.Windows.Forms.TabPage'
+	$button4 = New-Object 'System.Windows.Forms.Button'
+	$button5 = New-Object 'System.Windows.Forms.Button'
+	$button8 = New-Object 'System.Windows.Forms.Button'
+	$buttonADUC = New-Object 'System.Windows.Forms.Button'
+	$buttonDeviceMgr = New-Object 'System.Windows.Forms.Button'
+	$buttonRegistry = New-Object 'System.Windows.Forms.Button'
+	$buttonMMC = New-Object 'System.Windows.Forms.Button'
+	$TaskMgr = New-Object 'System.Windows.Forms.Button'
+	$tabpage2 = New-Object 'System.Windows.Forms.TabPage'
+	$button7 = New-Object 'System.Windows.Forms.Button'
+	$buttonServer8 = New-Object 'System.Windows.Forms.Button'
+	$buttonServer3 = New-Object 'System.Windows.Forms.Button'
+	$buttonServer4 = New-Object 'System.Windows.Forms.Button'
+	$buttonServer5 = New-Object 'System.Windows.Forms.Button'
+	$buttonServer6 = New-Object 'System.Windows.Forms.Button'
+	$buttonServer2 = New-Object 'System.Windows.Forms.Button'
+	$label7 = New-Object 'System.Windows.Forms.Label'
+	$label6 = New-Object 'System.Windows.Forms.Label'
+	$label5 = New-Object 'System.Windows.Forms.Label'
+	$label4 = New-Object 'System.Windows.Forms.Label'
+	$label3 = New-Object 'System.Windows.Forms.Label'
+	$label2 = New-Object 'System.Windows.Forms.Label'
+	$label1 = New-Object 'System.Windows.Forms.Label'
+	$labelServerDesc = New-Object 'System.Windows.Forms.Label'
+	$buttonServer1 = New-Object 'System.Windows.Forms.Button'
+	$tabpage3 = New-Object 'System.Windows.Forms.TabPage'
+	$buttonUnlock = New-Object 'System.Windows.Forms.Button'
+	$labelGroup = New-Object 'System.Windows.Forms.Label'
+	$labelUser = New-Object 'System.Windows.Forms.Label'
+	$textbox4 = New-Object 'System.Windows.Forms.TextBox'
+	$textbox2 = New-Object 'System.Windows.Forms.TextBox'
+	$combobox3 = New-Object 'System.Windows.Forms.ComboBox'
+	$buttonViewAllMembersOfGrou = New-Object 'System.Windows.Forms.Button'
+	$textbox1 = New-Object 'System.Windows.Forms.TextBox'
+	$combobox2 = New-Object 'System.Windows.Forms.ComboBox'
+	$buttonUsersGroups = New-Object 'System.Windows.Forms.Button'
+	$buttonAccountLocked = New-Object 'System.Windows.Forms.Button'
+	$tabpage4 = New-Object 'System.Windows.Forms.TabPage'
+	$buttonRestart = New-Object 'System.Windows.Forms.Button'
+	$buttonStart = New-Object 'System.Windows.Forms.Button'
+	$labelServiceName = New-Object 'System.Windows.Forms.Label'
+	$textbox6 = New-Object 'System.Windows.Forms.TextBox'
+	$labelServerName = New-Object 'System.Windows.Forms.Label'
+	$textbox5 = New-Object 'System.Windows.Forms.TextBox'
+	$buttonStop = New-Object 'System.Windows.Forms.Button'
+	$tabpage5 = New-Object 'System.Windows.Forms.TabPage'
+	$combobox4 = New-Object 'System.Windows.Forms.ComboBox'
+	$buttonInstallSoftwareExamp = New-Object 'System.Windows.Forms.Button'
+	$labelListOfClientPCs = New-Object 'System.Windows.Forms.Label'
+	$InitialFormWindowState = New-Object 'System.Windows.Forms.FormWindowState'
+	#endregion Generated Form Objects
+
+	#----------------------------------------------
+	# User Generated Script
+	#----------------------------------------------
+	
+	$form1_Load={
+		#TODO: Initialize Form Controls here
+		
+	}
+	
+	$TaskMgr_Click={
+		#TODO: Place custom script here
+		Start-Process c:\Windows\System32\Taskmgr.exe
+	}
+	
+	$buttonRemedy_Click={
+		#TODO: Place custom script here
+		Start-Process 
+	}
+	
+	#region Control Helper Functions
+	function Show-NotifyIcon
+	{
+	<#
+		.SYNOPSIS
+			Displays a NotifyIcon's balloon tip message in the taskbar's notification area.
+		
+		.DESCRIPTION
+			Displays a NotifyIcon's a balloon tip message in the taskbar's notification area.
+			
+		.PARAMETER NotifyIcon
+	     	The NotifyIcon control that will be displayed.
+		
+		.PARAMETER BalloonTipText
+	     	Sets the text to display in the balloon tip.
+		
+		.PARAMETER BalloonTipTitle
+			Sets the Title to display in the balloon tip.
+		
+		.PARAMETER BalloonTipIcon	
+			The icon to display in the ballon tip.
+		
+		.PARAMETER Timeout	
+			The time the ToolTip Balloon will remain visible in milliseconds. 
+			Default: 0 - Uses windows default.
+	#>
+		 param(
+		  [Parameter(Mandatory = $true, Position = 0)]
+		  [ValidateNotNull()]
+		  [System.Windows.Forms.NotifyIcon]$NotifyIcon,
+		  [Parameter(Mandatory = $true, Position = 1)]
+		  [ValidateNotNullOrEmpty()]
+		  [String]$BalloonTipText,
+		  [Parameter(Position = 2)]
+		  [String]$BalloonTipTitle = '',
+		  [Parameter(Position = 3)]
+		  [System.Windows.Forms.ToolTipIcon]$BalloonTipIcon = 'None',
+		  [Parameter(Position = 4)]
+		  [int]$Timeout = 0
+	 	)
+		
+		if($null -eq $NotifyIcon.Icon)
+		{
+			#Set a Default Icon otherwise the balloon will not show
+			$NotifyIcon.Icon = [System.Drawing.Icon]::ExtractAssociatedIcon([System.Windows.Forms.Application]::ExecutablePath)
+		}
+		
+		$NotifyIcon.ShowBalloonTip($Timeout, $BalloonTipTitle, $BalloonTipText, $BalloonTipIcon)
+	}
+	
+	
+	
+	function Update-ListBox
+	{
+	<#
+		.SYNOPSIS
+			This functions helps you load items into a ListBox or CheckedListBox.
+		
+		.DESCRIPTION
+			Use this function to dynamically load items into the ListBox control.
+		
+		.PARAMETER ListBox
+			The ListBox control you want to add items to.
+		
+		.PARAMETER Items
+			The object or objects you wish to load into the ListBox's Items collection.
+		
+		.PARAMETER DisplayMember
+			Indicates the property to display for the items in this control.
+		
+		.PARAMETER Append
+			Adds the item(s) to the ListBox without clearing the Items collection.
+		
+		.EXAMPLE
+			Update-ListBox $ListBox1 "Red", "White", "Blue"
+		
+		.EXAMPLE
+			Update-ListBox $listBox1 "Red" -Append
+			Update-ListBox $listBox1 "White" -Append
+			Update-ListBox $listBox1 "Blue" -Append
+		
+		.EXAMPLE
+			Update-ListBox $listBox1 (Get-Process) "ProcessName"
+		
+		.NOTES
+			Additional information about the function.
+	#>
+		
+		param
+		(
+			[Parameter(Mandatory = $true)]
+			[ValidateNotNull()]
+			[System.Windows.Forms.ListBox]
+			$ListBox,
+			[Parameter(Mandatory = $true)]
+			[ValidateNotNull()]
+			$Items,
+			[Parameter(Mandatory = $false)]
+			[string]
+			$DisplayMember,
+			[switch]
+			$Append
+		)
+		
+		if (-not $Append)
+		{
+			$listBox.Items.Clear()
+		}
+		
+		if ($Items -is [System.Windows.Forms.ListBox+ObjectCollection] -or $Items -is [System.Collections.ICollection])
+		{
+			$listBox.Items.AddRange($Items)
+		}
+		elseif ($Items -is [System.Collections.IEnumerable])
+		{
+			$listBox.BeginUpdate()
+			foreach ($obj in $Items)
+			{
+				$listBox.Items.Add($obj)
+			}
+			$listBox.EndUpdate()
+		}
+		else
+		{
+			$listBox.Items.Add($Items)
+		}
+		
+		$listBox.DisplayMember = $DisplayMember
+	}
+	
+	function Update-ListViewColumnSort
+	{
+	<#
+		.SYNOPSIS
+			Sort the ListView's item using the specified column.
+		
+		.DESCRIPTION
+			Sort the ListView's item using the specified column.
+			This function uses Add-Type to define a class that sort the items.
+			The ListView's Tag property is used to keep track of the sorting.
+		
+		.PARAMETER ListView
+			The ListView control to sort.
+		
+		.PARAMETER ColumnIndex
+			The index of the column to use for sorting.
+		
+		.PARAMETER SortOrder
+			The direction to sort the items. If not specified or set to None, it will toggle.
+		
+		.EXAMPLE
+			Update-ListViewColumnSort -ListView $listview1 -ColumnIndex 0
+		
+		.NOTES
+			Additional information about the function.
+	#>
+		
+		param
+		(
+			[Parameter(Mandatory = $true)]
+			[ValidateNotNull()]
+			[System.Windows.Forms.ListView]
+			$ListView,
+			[Parameter(Mandatory = $true)]
+			[int]
+			$ColumnIndex,
+			[System.Windows.Forms.SortOrder]
+			$SortOrder = 'None'
+		)
+		
+		if (($ListView.Items.Count -eq 0) -or ($ColumnIndex -lt 0) -or ($ColumnIndex -ge $ListView.Columns.Count))
+		{
+			return;
+		}
+		
+		#region Define ListViewItemComparer
+		try
+		{
+			[ListViewItemComparer] | Out-Null
+		}
+		catch
+		{
+			Add-Type -ReferencedAssemblies ('System.Windows.Forms') -TypeDefinition  @" 
+	using System;
+	using System.Windows.Forms;
+	using System.Collections;
+	public class ListViewItemComparer : IComparer
+	{
+	    public int column;
+	    public SortOrder sortOrder;
+	    public ListViewItemComparer()
+	    {
+	        column = 0;
+			sortOrder = SortOrder.Ascending;
+	    }
+	    public ListViewItemComparer(int column, SortOrder sort)
+	    {
+	        this.column = column;
+			sortOrder = sort;
+	    }
+	    public int Compare(object x, object y)
+	    {
+			if(column >= ((ListViewItem)x).SubItems.Count)
+				return  sortOrder == SortOrder.Ascending ? -1 : 1;
+		
+			if(column >= ((ListViewItem)y).SubItems.Count)
+				return sortOrder == SortOrder.Ascending ? 1 : -1;
+		
+			if(sortOrder == SortOrder.Ascending)
+	        	return String.Compare(((ListViewItem)x).SubItems[column].Text, ((ListViewItem)y).SubItems[column].Text);
+			else
+				return String.Compare(((ListViewItem)y).SubItems[column].Text, ((ListViewItem)x).SubItems[column].Text);
+	    }
+	}
+"@ | Out-Null
+		}
+		#endregion
+		
+		if ($ListView.Tag -is [ListViewItemComparer])
+		{
+			#Toggle the Sort Order
+			if ($SortOrder -eq [System.Windows.Forms.SortOrder]::None)
+			{
+				if ($ListView.Tag.column -eq $ColumnIndex -and $ListView.Tag.sortOrder -eq 'Ascending')
+				{
+					$ListView.Tag.sortOrder = 'Descending'
+				}
+				else
+				{
+					$ListView.Tag.sortOrder = 'Ascending'
+				}
+			}
+			else
+			{
+				$ListView.Tag.sortOrder = $SortOrder
+			}
+			
+			$ListView.Tag.column = $ColumnIndex
+			$ListView.Sort() #Sort the items
+		}
+		else
+		{
+			if ($SortOrder -eq [System.Windows.Forms.SortOrder]::None)
+			{
+				$SortOrder = [System.Windows.Forms.SortOrder]::Ascending
+			}
+			
+			#Set to Tag because for some reason in PowerShell ListViewItemSorter prop returns null
+			$ListView.Tag = New-Object ListViewItemComparer ($ColumnIndex, $SortOrder)
+			$ListView.ListViewItemSorter = $ListView.Tag #Automatically sorts
+		}
+	}
+	
+	
+	function Add-ListViewItem
+	{
+	<#
+		.SYNOPSIS
+			Adds the item(s) to the ListView and stores the object in the ListViewItem's Tag property.
+	
+		.DESCRIPTION
+			Adds the item(s) to the ListView and stores the object in the ListViewItem's Tag property.
+	
+		.PARAMETER ListView
+			The ListView control to add the items to.
+	
+		.PARAMETER Items
+			The object or objects you wish to load into the ListView's Items collection.
+			
+		.PARAMETER  ImageIndex
+			The index of a predefined image in the ListView's ImageList.
+		
+		.PARAMETER  SubItems
+			List of strings to add as Subitems.
+		
+		.PARAMETER Group
+			The group to place the item(s) in.
+		
+		.PARAMETER Clear
+			This switch clears the ListView's Items before adding the new item(s).
+		
+		.EXAMPLE
+			Add-ListViewItem -ListView $listview1 -Items "Test" -Group $listview1.Groups[0] -ImageIndex 0 -SubItems "Installed"
+	#>
+		
+		Param( 
+		[ValidateNotNull()]
+		[Parameter(Mandatory=$true)]
+		[System.Windows.Forms.ListView]$ListView,
+		[ValidateNotNull()]
+		[Parameter(Mandatory=$true)]
+		$Items,
+		[int]$ImageIndex = -1,
+		[string[]]$SubItems,
+		$Group,
+		[switch]$Clear)
+		
+		if($Clear)
+		{
+			$ListView.Items.Clear();
+	    }
+	    
+	    $lvGroup = $null
+	    if ($Group -is [System.Windows.Forms.ListViewGroup])
+	    {
+	        $lvGroup = $Group
+	    }
+	    elseif ($Group -is [string])
+	    {
+	        #$lvGroup = $ListView.Group[$Group] # Case sensitive
+	        foreach ($groupItem in $ListView.Groups)
+	        {
+	            if ($groupItem.Name -eq $Group)
+	            {
+	                $lvGroup = $groupItem
+	                break
+	            }
+	        }
+	        
+	        if ($null -eq $lvGroup)
+	        {
+	            $lvGroup = $ListView.Groups.Add($Group, $Group)
+	        }
+	    }
+	    
+		if($Items -is [Array])
+		{
+			$ListView.BeginUpdate()
+			foreach ($item in $Items)
+			{		
+				$listitem  = $ListView.Items.Add($item.ToString(), $ImageIndex)
+				#Store the object in the Tag
+				$listitem.Tag = $item
+				
+				if($null -ne $SubItems)
+				{
+					$listitem.SubItems.AddRange($SubItems)
+				}
+				
+				if($null -ne $lvGroup)
+				{
+					$listitem.Group = $lvGroup
+				}
+			}
+			$ListView.EndUpdate()
+		}
+		else
+		{
+			#Add a new item to the ListView
+			$listitem  = $ListView.Items.Add($Items.ToString(), $ImageIndex)
+			#Store the object in the Tag
+			$listitem.Tag = $Items
+			
+			if($null -ne $SubItems)
+			{
+				$listitem.SubItems.AddRange($SubItems)
+			}
+			
+			if($null -ne $lvGroup)
+			{
+				$listitem.Group = $lvGroup
+			}
+		}
+	}
+	
+	
+	function Update-ComboBox
+	{
+	<#
+		.SYNOPSIS
+			This functions helps you load items into a ComboBox.
+		
+		.DESCRIPTION
+			Use this function to dynamically load items into the ComboBox control.
+		
+		.PARAMETER ComboBox
+			The ComboBox control you want to add items to.
+		
+		.PARAMETER Items
+			The object or objects you wish to load into the ComboBox's Items collection.
+		
+		.PARAMETER DisplayMember
+			Indicates the property to display for the items in this control.
+		
+		.PARAMETER Append
+			Adds the item(s) to the ComboBox without clearing the Items collection.
+		
+		.EXAMPLE
+			Update-ComboBox $combobox1 "Red", "White", "Blue"
+		
+		.EXAMPLE
+			Update-ComboBox $combobox1 "Red" -Append
+			Update-ComboBox $combobox1 "White" -Append
+			Update-ComboBox $combobox1 "Blue" -Append
+		
+		.EXAMPLE
+			Update-ComboBox $combobox1 (Get-Process) "ProcessName"
+		
+		.NOTES
+			Additional information about the function.
+	#>
+		
+		param
+		(
+			[Parameter(Mandatory = $true)]
+			[ValidateNotNull()]
+			[System.Windows.Forms.ComboBox]
+			$ComboBox,
+			[Parameter(Mandatory = $true)]
+			[ValidateNotNull()]
+			$Items,
+			[Parameter(Mandatory = $false)]
+			[string]
+			$DisplayMember,
+			[switch]
+			$Append
+		)
+		
+		if (-not $Append)
+		{
+			$ComboBox.Items.Clear()
+		}
+		
+		if ($Items -is [Object[]])
+		{
+			$ComboBox.Items.AddRange($Items)
+		}
+		elseif ($Items -is [System.Collections.IEnumerable])
+		{
+			$ComboBox.BeginUpdate()
+			foreach ($obj in $Items)
+			{
+				$ComboBox.Items.Add($obj)
+			}
+			$ComboBox.EndUpdate()
+		}
+		else
+		{
+			$ComboBox.Items.Add($Items)
+		}
+		
+		$ComboBox.DisplayMember = $DisplayMember
+	}
+	#endregion
+	
+	$buttonServer1_Click={
+		#TODO: Place custom script here
+	c:\Windows\System32\mstsc.exe /v svr1
+	}
+	
+	$textbox1_TextChanged={
+		#TODO: Place custom script here
+	}
+	
+	$buttonMMC_Click={
+		#TODO: Place custom script here
+		Start-Process c:\Windows\System32\mmc.exe
+	}
+	
+	$buttonRegistry_Click={
+		#TODO: Place custom script here
+		Start-Process c:\Windows\regedit.exe
+	}
+	
+	$buttonDeviceMgr_Click={
+		#TODO: Place custom script here
+		Start-Process C:\Windows\System32\devmgmt.msc
+	}
+	
+	$buttonAccountLocked_Click={
+		#TODO: Place custom script here
+		$identity = $textbox1.Text
+		if (Get-ADUser -identity $identity -Properties * | Select-Object LockedOut) {$textbox2.Text = 'Yes'} else {$textbox2.Text = 'No'}
+		
+	}
+	
+	$combobox1_SelectedIndexChanged={
+		#TODO: Place custom script here
+		
+	}
+	
+	$buttonUsersGroups_Click={
+		#TODO: Place custom script here
+		$edipi = $textbox1.Text
+		$combobox2.DataSource = ([adsisearcher]"samaccountname=$EDIPI").Findone().Properties.memberof -replace '^CN=([^,]+).+$', '$1'
+	}
+	
+	$richtextbox1_TextChanged={
+		#TODO: Place custom script here
+		
+	}
+	
+	$buttonViewAllMembersOfGrou_Click={
+		#TODO: Place custom script here
+		$combobox3 = get-adgroupmember -identity 1,
+						  2,
+						  3,
+						  4,
+						  5,
+						  6,
+						  7	| Select-Object -ExpandProperty name
+	}
+	
+	$combobox3_SelectedIndexChanged={
+		#TODO: Place custom script here
+		
+	}
+	
+	$textbox2_Click={
+		#TODO: Place custom script here
+		c:\Windows\System32\mstsc.exe /v fgudb2k8fas05
+	}
+	
+	$buttonStop_Click= {
+		#TODO: Place custom script here
+		$service = $textbox6.Text
+		$server = $textbox5.Text
+		Invoke-Command -Cn $server -ScriptBlock {Stop-Service $using:service}
+	}
+	$combobox4_DropDown={
+		#TODO: Place custom script here
+	
+	}
+	
+	$combobox4_SelectedIndexChanged={
+		#TODO: Place custom script here
+	
+	}
+	
+	$buttonInstallSoftwareExamp_Click={
+		#TODO: Place custom script here
+		$client = $combobox4.SelectedItem
+		$args = '/quiet /norestart'
+		Invoke-Command -Cn $client -ScriptBlock {Start-Process path-to-software.exe -ArgumentList $args}
+	}
+	
+	$listbox1_SelectedIndexChanged={
+		#TODO: Place custom script here
+		
+	}
+	
+	$combobox4_SelectionChangeCommitted={
+		#TODO: Place custom script here
+		}
+	
+	$buttonServices_Click={
+		#TODO: Place custom script here
+	
+	}
+	
+	$combobox2_SelectedIndexChanged={
+		#TODO: Place custom script here
+		
+	}
+	
+	$buttonFGUAP2K8FAS02_Click={
+		#TODO: Place custom script here
+		c:\Windows\System32\mstsc.exe /v fguap2k8fas02
+	}
+	
+	$buttonFGUDB2K8FAS05_Click={
+		#TODO: Place custom script here
+		c:\Windows\System32\mstsc.exe /v fgudb2k8fas05
+	}
+	
+	$buttonJUMJASFRS2P_Click={
+		#TODO: Place custom script here
+		c:\Windows\System32\mstsc.exe /v jumj-as-frs2p
+	}
+	
+	$buttonJUMJDBFD002P_Click={
+		#TODO: Place custom script here
+		c:\Windows\System32\mstsc.exe /v jumj-db-fd002p
+	}
+	
+	$button14315820757_Click={
+		#TODO: Place custom script here
+		c:\Windows\System32\mstsc.exe /v 143.158.207.57
+	}
+	
+	$buttonFGUAP2K8FAS03_Click={
+		#TODO: Place custom script here
+		c:\Windows\System32\mstsc.exe /v fguap2k8fas03
+		}
+	
+	$buttonJUMJDBFD003P_Click={
+		#TODO: Place custom script here
+		c:\Windows\System32\mstsc.exe /v jumj-db-fd003p
+	}
+	
+	$buttonInstallCICVersion_Click={
+		#TODO: Place custom script here
+		$client = $combobox4.Text 
+	}
+	
+	$button3_Click={
+		#TODO: Place custom script here
+		
+	}
+	
+	$tabpage3_Click={
+		#TODO: Place custom script here
+		
+	}
+	
+	$buttonListMgrServices_Click={
+		#TODO: Place custom script here
+		
+	}
+	
+	$buttonMidtierReboot_Click={
+		#TODO: Place custom script here
+		
+	}
+	
+	$button2_Click={
+		#TODO: Place custom script here
+		
+	}
+	
+	$labelListOfClientPCs_Click={
+		#TODO: Place custom script here
+		
+	}
+	
+	$buttonQueryRemedyVersion_Click={
+		#TODO: Place custom script here
+		
+	}
+	
+	$buttonQueryCICVersion_Click={
+		#TODO: Place custom script here
+		
+	}
+	
+	$labelServerDesc_Click={
+		#TODO: Place custom script here
+		
+	}
+	
+	$buttonLMWebGUI_Click={
+		#TODO: Place custom script here
+		& 'c:\Program Files (x86)\Google\Chrome\Application\chrome.exe' 'http://jumj-mls-001v:81'
+	}
+	
+	$buttonADUC_Click={
+		#TODO: Place custom script here
+		Start-Process c:\Windows\System32\dsa.msc
+	}
+	
+	$button4_Click={
+		#TODO: Place custom script here
+		
+	}
+	
+	$buttonUnlock_Click={
+		#TODO: Place custom script here
+		$identity = $textbox1.Text
+		unlock-adaccount -identity $identity
+	}
+	
+	$buttonStart_Click={
+		#TODO: Place custom script here
+		$service = $textbox6.Text
+		$server = $textbox5.Text
+		Invoke-Command -Cn $server -ScriptBlock { Start-Service $using:service }
+	}
+	
+	$buttonRestart_Click={
+		#TODO: Place custom script here
+		$service = $textbox6.Text
+		$server = $textbox5.Text
+		Invoke-Command -Cn $server -ScriptBlock { Restart-Service $using:service }
+	}
+	
+	$buttonServer2_Click={
+		#TODO: Place custom script here
+		c:\Windows\System32\mstsc.exe /v server 2
+	}
+	
+	$buttonServer3_Click={
+		#TODO: Place custom script here
+		c:\Windows\System32\mstsc.exe /v server 3
+	}
+	
+	$buttonServer4_Click={
+		#TODO: Place custom script here
+		c:\Windows\System32\mstsc.exe /v server 4
+	}
+	
+	$buttonServer5_Click={
+		#TODO: Place custom script here
+		c:\Windows\System32\mstsc.exe /v server 5
+	}
+	
+	$buttonServer6_Click={
+		#TODO: Place custom script here
+		c:\Windows\System32\mstsc.exe /v server 6
+	}
+	
+	$button7_Click={
+		#TODO: Place custom script here
+		c:\Windows\System32\mstsc.exe /v server 7
+	}
+	
+	$buttonServer8_Click={
+		#TODO: Place custom script here
+		c:\Windows\System32\mstsc.exe /v server 8
+	}
+	
+	$textbox4_TextChanged={
+		#TODO: Place custom script here
+		
+	}
+	
+	# --End User Generated Script--
+	#----------------------------------------------
+	#region Generated Events
+	#----------------------------------------------
+	
+	$Form_StateCorrection_Load=
+	{
+		#Correct the initial state of the form to prevent the .Net maximized form issue
+		$form1.WindowState = $InitialFormWindowState
+	}
+	
+	$Form_Cleanup_FormClosed=
+	{
+		#Remove all event handlers from the controls
+		try
+		{
+			$button4.remove_Click($button4_Click)
+			$buttonADUC.remove_Click($buttonADUC_Click)
+			$buttonDeviceMgr.remove_Click($buttonDeviceMgr_Click)
+			$buttonRegistry.remove_Click($buttonRegistry_Click)
+			$buttonMMC.remove_Click($buttonMMC_Click)
+			$TaskMgr.remove_Click($TaskMgr_Click)
+			$button7.remove_Click($button7_Click)
+			$buttonServer8.remove_Click($buttonServer8_Click)
+			$buttonServer3.remove_Click($buttonServer3_Click)
+			$buttonServer4.remove_Click($buttonServer4_Click)
+			$buttonServer5.remove_Click($buttonServer5_Click)
+			$buttonServer6.remove_Click($buttonServer6_Click)
+			$buttonServer2.remove_Click($buttonServer2_Click)
+			$labelServerDesc.remove_Click($labelServerDesc_Click)
+			$buttonServer1.remove_Click($buttonServer1_Click)
+			$buttonUnlock.remove_Click($buttonUnlock_Click)
+			$textbox4.remove_TextChanged($textbox4_TextChanged)
+			$combobox3.remove_SelectedIndexChanged($combobox3_SelectedIndexChanged)
+			$buttonViewAllMembersOfGrou.remove_Click($buttonViewAllMembersOfGrou_Click)
+			$textbox1.remove_TextChanged($textbox1_TextChanged)
+			$combobox2.remove_SelectedIndexChanged($combobox2_SelectedIndexChanged)
+			$buttonUsersGroups.remove_Click($buttonUsersGroups_Click)
+			$buttonAccountLocked.remove_Click($buttonAccountLocked_Click)
+			$tabpage3.remove_Click($tabpage3_Click)
+			$buttonRestart.remove_Click($buttonRestart_Click)
+			$buttonStart.remove_Click($buttonStart_Click)
+			$buttonStop.remove_Click($buttonStop_Click)
+			$combobox4.remove_SelectedIndexChanged($combobox4_SelectedIndexChanged)
+			$buttonInstallSoftwareExamp.remove_Click($buttonInstallSoftwareExamp_Click)
+			$labelListOfClientPCs.remove_Click($labelListOfClientPCs_Click)
+			$form1.remove_Load($form1_Load)
+			$form1.remove_Load($Form_StateCorrection_Load)
+			$form1.remove_FormClosed($Form_Cleanup_FormClosed)
+		}
+		catch { Out-Null <# Prevent PSScriptAnalyzer warning #> }
+	}
+	#endregion Generated Events
+
+	#----------------------------------------------
+	#region Generated Form Code
+	#----------------------------------------------
+	$form1.SuspendLayout()
+	$tabcontrol1.SuspendLayout()
+	$tabpage1.SuspendLayout()
+	$tabpage2.SuspendLayout()
+	$tabpage3.SuspendLayout()
+	$tabpage4.SuspendLayout()
+	$tabpage5.SuspendLayout()
+	#
+	# form1
+	#
+	$form1.Controls.Add($tabcontrol1)
+	$form1.AutoScaleDimensions = '6, 13'
+	$form1.AutoScaleMode = 'Font'
+	$form1.ClientSize = '1804, 941'
+	$form1.Name = 'form1'
+	$form1.Text = 'Form'
+	$form1.add_Load($form1_Load)
+	#
+	# tabcontrol1
+	#
+	$tabcontrol1.Controls.Add($tabpage1)
+	$tabcontrol1.Controls.Add($tabpage2)
+	$tabcontrol1.Controls.Add($tabpage3)
+	$tabcontrol1.Controls.Add($tabpage4)
+	$tabcontrol1.Controls.Add($tabpage5)
+	$tabcontrol1.Location = '2, 2'
+	$tabcontrol1.Name = 'tabcontrol1'
+	$tabcontrol1.SelectedIndex = 0
+	$tabcontrol1.Size = '1820, 980'
+	$tabcontrol1.TabIndex = 44
+	#
+	# tabpage1
+	#
+	$tabpage1.Controls.Add($button4)
+	$tabpage1.Controls.Add($button5)
+	$tabpage1.Controls.Add($button8)
+	$tabpage1.Controls.Add($buttonADUC)
+	$tabpage1.Controls.Add($buttonDeviceMgr)
+	$tabpage1.Controls.Add($buttonRegistry)
+	$tabpage1.Controls.Add($buttonMMC)
+	$tabpage1.Controls.Add($TaskMgr)
+	$tabpage1.Location = '4, 22'
+	$tabpage1.Name = 'tabpage1'
+	$tabpage1.Padding = '3, 3, 3, 3'
+	$tabpage1.Size = '1079, 348'
+	$tabpage1.TabIndex = 0
+	$tabpage1.Text = 'Processes'
+	$tabpage1.UseVisualStyleBackColor = $True
+	#
+	# button4
+	#
+	$button4.AutoSize = $True
+	$button4.Location = '84, 36'
+	$button4.Name = 'button4'
+	$button4.Size = '75, 24'
+	$button4.TabIndex = 16
+	$button4.Text = '6'
+	$button4.UseCompatibleTextRendering = $True
+	$button4.UseVisualStyleBackColor = $True
+	$button4.add_Click($button4_Click)
+	#
+	# button5
+	#
+	$button5.AutoSize = $True
+	$button5.Location = '165, 36'
+	$button5.Name = 'button5'
+	$button5.Size = '75, 24'
+	$button5.TabIndex = 15
+	$button5.Text = '7'
+	$button5.UseCompatibleTextRendering = $True
+	$button5.UseVisualStyleBackColor = $True
+	#
+	# button8
+	#
+	$button8.AutoSize = $True
+	$button8.Location = '246, 36'
+	$button8.Name = 'button8'
+	$button8.Size = '82, 24'
+	$button8.TabIndex = 14
+	$button8.Text = '8'
+	$button8.UseCompatibleTextRendering = $True
+	$button8.UseVisualStyleBackColor = $True
+	#
+	# buttonADUC
+	#
+	$buttonADUC.AutoSize = $True
+	$buttonADUC.Location = '3, 36'
+	$buttonADUC.Name = 'buttonADUC'
+	$buttonADUC.Size = '75, 24'
+	$buttonADUC.TabIndex = 13
+	$buttonADUC.Text = 'ADUC'
+	$buttonADUC.UseCompatibleTextRendering = $True
+	$buttonADUC.UseVisualStyleBackColor = $True
+	$buttonADUC.add_Click($buttonADUC_Click)
+	#
+	# buttonDeviceMgr
+	#
+	$buttonDeviceMgr.AutoSize = $True
+	$buttonDeviceMgr.Location = '246, 6'
+	$buttonDeviceMgr.Name = 'buttonDeviceMgr'
+	$buttonDeviceMgr.Size = '82, 24'
+	$buttonDeviceMgr.TabIndex = 12
+	$buttonDeviceMgr.Text = 'Device Mgr'
+	$buttonDeviceMgr.UseCompatibleTextRendering = $True
+	$buttonDeviceMgr.UseVisualStyleBackColor = $True
+	$buttonDeviceMgr.add_Click($buttonDeviceMgr_Click)
+	#
+	# buttonRegistry
+	#
+	$buttonRegistry.AutoSize = $True
+	$buttonRegistry.Location = '165, 6'
+	$buttonRegistry.Name = 'buttonRegistry'
+	$buttonRegistry.Size = '75, 24'
+	$buttonRegistry.TabIndex = 11
+	$buttonRegistry.Text = 'Registry'
+	$buttonRegistry.UseCompatibleTextRendering = $True
+	$buttonRegistry.UseVisualStyleBackColor = $True
+	$buttonRegistry.add_Click($buttonRegistry_Click)
+	#
+	# buttonMMC
+	#
+	$buttonMMC.AutoSize = $True
+	$buttonMMC.Location = '84, 6'
+	$buttonMMC.Name = 'buttonMMC'
+	$buttonMMC.Size = '75, 24'
+	$buttonMMC.TabIndex = 10
+	$buttonMMC.Text = 'MMC'
+	$buttonMMC.UseCompatibleTextRendering = $True
+	$buttonMMC.UseVisualStyleBackColor = $True
+	$buttonMMC.add_Click($buttonMMC_Click)
+	#
+	# TaskMgr
+	#
+	$TaskMgr.AutoSize = $True
+	$TaskMgr.Location = '3, 6'
+	$TaskMgr.Name = 'TaskMgr'
+	$TaskMgr.Size = '75, 24'
+	$TaskMgr.TabIndex = 9
+	$TaskMgr.Text = 'TaskMgr'
+	$TaskMgr.UseCompatibleTextRendering = $True
+	$TaskMgr.UseVisualStyleBackColor = $True
+	$TaskMgr.add_Click($TaskMgr_Click)
+	#
+	# tabpage2
+	#
+	$tabpage2.Controls.Add($button7)
+	$tabpage2.Controls.Add($buttonServer8)
+	$tabpage2.Controls.Add($buttonServer3)
+	$tabpage2.Controls.Add($buttonServer4)
+	$tabpage2.Controls.Add($buttonServer5)
+	$tabpage2.Controls.Add($buttonServer6)
+	$tabpage2.Controls.Add($buttonServer2)
+	$tabpage2.Controls.Add($label7)
+	$tabpage2.Controls.Add($label6)
+	$tabpage2.Controls.Add($label5)
+	$tabpage2.Controls.Add($label4)
+	$tabpage2.Controls.Add($label3)
+	$tabpage2.Controls.Add($label2)
+	$tabpage2.Controls.Add($label1)
+	$tabpage2.Controls.Add($labelServerDesc)
+	$tabpage2.Controls.Add($buttonServer1)
+	$tabpage2.Location = '4, 22'
+	$tabpage2.Name = 'tabpage2'
+	$tabpage2.Padding = '3, 3, 3, 3'
+	$tabpage2.Size = '1812, 954'
+	$tabpage2.TabIndex = 1
+	$tabpage2.Text = 'Remote Desktop'
+	$tabpage2.UseVisualStyleBackColor = $True
+	#
+	# button7
+	#
+	$button7.AutoSize = $True
+	$button7.Location = '219, 70'
+	$button7.Name = 'button7'
+	$button7.Size = '102, 24'
+	$button7.TabIndex = 57
+	$button7.Text = 'Server6'
+	$button7.UseCompatibleTextRendering = $True
+	$button7.UseVisualStyleBackColor = $True
+	$button7.add_Click($button7_Click)
+	#
+	# buttonServer8
+	#
+	$buttonServer8.AutoSize = $True
+	$buttonServer8.Location = '327, 70'
+	$buttonServer8.Name = 'buttonServer8'
+	$buttonServer8.Size = '102, 24'
+	$buttonServer8.TabIndex = 56
+	$buttonServer8.Text = 'Server8'
+	$buttonServer8.UseCompatibleTextRendering = $True
+	$buttonServer8.UseVisualStyleBackColor = $True
+	$buttonServer8.add_Click($buttonServer8_Click)
+	#
+	# buttonServer3
+	#
+	$buttonServer3.AutoSize = $True
+	$buttonServer3.Location = '219, 23'
+	$buttonServer3.Name = 'buttonServer3'
+	$buttonServer3.Size = '102, 24'
+	$buttonServer3.TabIndex = 55
+	$buttonServer3.Text = 'Server3'
+	$buttonServer3.UseCompatibleTextRendering = $True
+	$buttonServer3.UseVisualStyleBackColor = $True
+	$buttonServer3.add_Click($buttonServer3_Click)
+	#
+	# buttonServer4
+	#
+	$buttonServer4.AutoSize = $True
+	$buttonServer4.Location = '327, 23'
+	$buttonServer4.Name = 'buttonServer4'
+	$buttonServer4.Size = '102, 24'
+	$buttonServer4.TabIndex = 54
+	$buttonServer4.Text = 'Server4'
+	$buttonServer4.UseCompatibleTextRendering = $True
+	$buttonServer4.UseVisualStyleBackColor = $True
+	$buttonServer4.add_Click($buttonServer4_Click)
+	#
+	# buttonServer5
+	#
+	$buttonServer5.AutoSize = $True
+	$buttonServer5.Location = '3, 70'
+	$buttonServer5.Name = 'buttonServer5'
+	$buttonServer5.Size = '102, 24'
+	$buttonServer5.TabIndex = 53
+	$buttonServer5.Text = 'Server5'
+	$buttonServer5.UseCompatibleTextRendering = $True
+	$buttonServer5.UseVisualStyleBackColor = $True
+	$buttonServer5.add_Click($buttonServer5_Click)
+	#
+	# buttonServer6
+	#
+	$buttonServer6.AutoSize = $True
+	$buttonServer6.Location = '111, 70'
+	$buttonServer6.Name = 'buttonServer6'
+	$buttonServer6.Size = '102, 24'
+	$buttonServer6.TabIndex = 52
+	$buttonServer6.Text = 'Server6'
+	$buttonServer6.UseCompatibleTextRendering = $True
+	$buttonServer6.UseVisualStyleBackColor = $True
+	$buttonServer6.add_Click($buttonServer6_Click)
+	#
+	# buttonServer2
+	#
+	$buttonServer2.AutoSize = $True
+	$buttonServer2.Location = '111, 23'
+	$buttonServer2.Name = 'buttonServer2'
+	$buttonServer2.Size = '102, 24'
+	$buttonServer2.TabIndex = 51
+	$buttonServer2.Text = 'Server2'
+	$buttonServer2.UseCompatibleTextRendering = $True
+	$buttonServer2.UseVisualStyleBackColor = $True
+	$buttonServer2.add_Click($buttonServer2_Click)
+	#
+	# label7
+	#
+	$label7.AutoSize = $True
+	$label7.Location = '235, 3'
+	$label7.Name = 'label7'
+	$label7.Size = '70, 17'
+	$label7.TabIndex = 50
+	$label7.Text = 'Server Desc.'
+	$label7.UseCompatibleTextRendering = $True
+	#
+	# label6
+	#
+	$label6.AutoSize = $True
+	$label6.Location = '343, 3'
+	$label6.Name = 'label6'
+	$label6.Size = '70, 17'
+	$label6.TabIndex = 49
+	$label6.Text = 'Server Desc.'
+	$label6.UseCompatibleTextRendering = $True
+	#
+	# label5
+	#
+	$label5.AutoSize = $True
+	$label5.Location = '19, 50'
+	$label5.Name = 'label5'
+	$label5.Size = '70, 17'
+	$label5.TabIndex = 48
+	$label5.Text = 'Server Desc.'
+	$label5.UseCompatibleTextRendering = $True
+	#
+	# label4
+	#
+	$label4.AutoSize = $True
+	$label4.Location = '126, 50'
+	$label4.Name = 'label4'
+	$label4.Size = '70, 17'
+	$label4.TabIndex = 47
+	$label4.Text = 'Server Desc.'
+	$label4.UseCompatibleTextRendering = $True
+	#
+	# label3
+	#
+	$label3.AutoSize = $True
+	$label3.Location = '235, 50'
+	$label3.Name = 'label3'
+	$label3.Size = '70, 17'
+	$label3.TabIndex = 46
+	$label3.Text = 'Server Desc.'
+	$label3.UseCompatibleTextRendering = $True
+	#
+	# label2
+	#
+	$label2.AutoSize = $True
+	$label2.Location = '343, 50'
+	$label2.Name = 'label2'
+	$label2.Size = '70, 17'
+	$label2.TabIndex = 45
+	$label2.Text = 'Server Desc.'
+	$label2.UseCompatibleTextRendering = $True
+	#
+	# label1
+	#
+	$label1.AutoSize = $True
+	$label1.Location = '127, 3'
+	$label1.Name = 'label1'
+	$label1.Size = '70, 17'
+	$label1.TabIndex = 44
+	$label1.Text = 'Server Desc.'
+	$label1.UseCompatibleTextRendering = $True
+	#
+	# labelServerDesc
+	#
+	$labelServerDesc.AutoSize = $True
+	$labelServerDesc.Location = '19, 3'
+	$labelServerDesc.Name = 'labelServerDesc'
+	$labelServerDesc.Size = '70, 17'
+	$labelServerDesc.TabIndex = 43
+	$labelServerDesc.Text = 'Server Desc.'
+	$labelServerDesc.UseCompatibleTextRendering = $True
+	$labelServerDesc.add_Click($labelServerDesc_Click)
+	#
+	# buttonServer1
+	#
+	$buttonServer1.AutoSize = $True
+	$buttonServer1.Location = '3, 23'
+	$buttonServer1.Name = 'buttonServer1'
+	$buttonServer1.Size = '102, 24'
+	$buttonServer1.TabIndex = 33
+	$buttonServer1.Text = 'Server1'
+	$buttonServer1.UseCompatibleTextRendering = $True
+	$buttonServer1.UseVisualStyleBackColor = $True
+	$buttonServer1.add_Click($buttonServer1_Click)
+	#
+	# tabpage3
+	#
+	$tabpage3.Controls.Add($buttonUnlock)
+	$tabpage3.Controls.Add($labelGroup)
+	$tabpage3.Controls.Add($labelUser)
+	$tabpage3.Controls.Add($textbox4)
+	$tabpage3.Controls.Add($textbox2)
+	$tabpage3.Controls.Add($combobox3)
+	$tabpage3.Controls.Add($buttonViewAllMembersOfGrou)
+	$tabpage3.Controls.Add($textbox1)
+	$tabpage3.Controls.Add($combobox2)
+	$tabpage3.Controls.Add($buttonUsersGroups)
+	$tabpage3.Controls.Add($buttonAccountLocked)
+	$tabpage3.Location = '4, 22'
+	$tabpage3.Name = 'tabpage3'
+	$tabpage3.Size = '1812, 954'
+	$tabpage3.TabIndex = 2
+	$tabpage3.Text = 'ADUC Queries'
+	$tabpage3.UseVisualStyleBackColor = $True
+	$tabpage3.add_Click($tabpage3_Click)
+	#
+	# buttonUnlock
+	#
+	$buttonUnlock.AutoSize = $True
+	$buttonUnlock.Location = '6, 115'
+	$buttonUnlock.Name = 'buttonUnlock'
+	$buttonUnlock.Size = '102, 24'
+	$buttonUnlock.TabIndex = 47
+	$buttonUnlock.Text = 'Unlock'
+	$buttonUnlock.UseCompatibleTextRendering = $True
+	$buttonUnlock.UseVisualStyleBackColor = $True
+	$buttonUnlock.add_Click($buttonUnlock_Click)
+	#
+	# labelGroup
+	#
+	$labelGroup.AutoSize = $True
+	$labelGroup.Location = '134, 2'
+	$labelGroup.Name = 'labelGroup'
+	$labelGroup.Size = '36, 17'
+	$labelGroup.TabIndex = 46
+	$labelGroup.Text = 'Group'
+	$labelGroup.UseCompatibleTextRendering = $True
+	#
+	# labelUser
+	#
+	$labelUser.AutoSize = $True
+	$labelUser.Location = '37, 2'
+	$labelUser.Name = 'labelUser'
+	$labelUser.Size = '28, 17'
+	$labelUser.TabIndex = 45
+	$labelUser.Text = 'User'
+	$labelUser.UseCompatibleTextRendering = $True
+	#
+	# textbox4
+	#
+	[void]$textbox4.AutoCompleteCustomSource.Add('df')
+	[void]$textbox4.AutoCompleteCustomSource.Add('dsf')
+	[void]$textbox4.AutoCompleteCustomSource.Add('dsf')
+	[void]$textbox4.AutoCompleteCustomSource.Add('sdf')
+	[void]$textbox4.AutoCompleteCustomSource.Add('dsf')
+	$textbox4.Location = '102, 22'
+	$textbox4.Name = 'textbox4'
+	$textbox4.Size = '100, 20'
+	$textbox4.TabIndex = 44
+	$textbox4.add_TextChanged($textbox4_TextChanged)
+	#
+	# textbox2
+	#
+	$textbox2.Location = '6, 89'
+	$textbox2.Name = 'textbox2'
+	$textbox2.ReadOnly = $True
+	$textbox2.Size = '102, 20'
+	$textbox2.TabIndex = 41
+	#
+	# combobox3
+	#
+	$combobox3.DropDownStyle = 'DropDownList'
+	$combobox3.FormattingEnabled = $True
+	$combobox3.Location = '222, 87'
+	$combobox3.MaxDropDownItems = 100
+	$combobox3.Name = 'combobox3'
+	$combobox3.Size = '152, 21'
+	$combobox3.TabIndex = 40
+	$combobox3.add_SelectedIndexChanged($combobox3_SelectedIndexChanged)
+	#
+	# buttonViewAllMembersOfGrou
+	#
+	$buttonViewAllMembersOfGrou.AutoSize = $True
+	$buttonViewAllMembersOfGrou.Location = '222, 57'
+	$buttonViewAllMembersOfGrou.Name = 'buttonViewAllMembersOfGrou'
+	$buttonViewAllMembersOfGrou.Size = '152, 24'
+	$buttonViewAllMembersOfGrou.TabIndex = 39
+	$buttonViewAllMembersOfGrou.Text = 'View All Members of Group'
+	$buttonViewAllMembersOfGrou.UseCompatibleTextRendering = $True
+	$buttonViewAllMembersOfGrou.UseVisualStyleBackColor = $True
+	$buttonViewAllMembersOfGrou.add_Click($buttonViewAllMembersOfGrou_Click)
+	#
+	# textbox1
+	#
+	$textbox1.Location = '6, 22'
+	$textbox1.Name = 'textbox1'
+	$textbox1.Size = '90, 20'
+	$textbox1.TabIndex = 38
+	$textbox1.TextAlign = 'Center'
+	$textbox1.add_TextChanged($textbox1_TextChanged)
+	#
+	# combobox2
+	#
+	$combobox2.DropDownStyle = 'DropDownList'
+	$combobox2.FormattingEnabled = $True
+	$combobox2.Location = '114, 88'
+	$combobox2.MaxDropDownItems = 100
+	$combobox2.Name = 'combobox2'
+	$combobox2.Size = '102, 21'
+	$combobox2.TabIndex = 37
+	$combobox2.add_SelectedIndexChanged($combobox2_SelectedIndexChanged)
+	#
+	# buttonUsersGroups
+	#
+	$buttonUsersGroups.AutoSize = $True
+	$buttonUsersGroups.Location = '114, 58'
+	$buttonUsersGroups.Name = 'buttonUsersGroups'
+	$buttonUsersGroups.Size = '102, 24'
+	$buttonUsersGroups.TabIndex = 36
+	$buttonUsersGroups.Text = 'User''s Groups'
+	$buttonUsersGroups.UseCompatibleTextRendering = $True
+	$buttonUsersGroups.UseVisualStyleBackColor = $True
+	$buttonUsersGroups.add_Click($buttonUsersGroups_Click)
+	#
+	# buttonAccountLocked
+	#
+	$buttonAccountLocked.AutoSize = $True
+	$buttonAccountLocked.Location = '6, 58'
+	$buttonAccountLocked.Name = 'buttonAccountLocked'
+	$buttonAccountLocked.Size = '102, 24'
+	$buttonAccountLocked.TabIndex = 34
+	$buttonAccountLocked.Text = 'Account Locked?'
+	$buttonAccountLocked.UseCompatibleTextRendering = $True
+	$buttonAccountLocked.UseVisualStyleBackColor = $True
+	$buttonAccountLocked.add_Click($buttonAccountLocked_Click)
+	#
+	# tabpage4
+	#
+	$tabpage4.Controls.Add($buttonRestart)
+	$tabpage4.Controls.Add($buttonStart)
+	$tabpage4.Controls.Add($labelServiceName)
+	$tabpage4.Controls.Add($textbox6)
+	$tabpage4.Controls.Add($labelServerName)
+	$tabpage4.Controls.Add($textbox5)
+	$tabpage4.Controls.Add($buttonStop)
+	$tabpage4.Location = '4, 22'
+	$tabpage4.Name = 'tabpage4'
+	$tabpage4.Size = '1812, 954'
+	$tabpage4.TabIndex = 3
+	$tabpage4.Text = 'Services'
+	$tabpage4.UseVisualStyleBackColor = $True
+	#
+	# buttonRestart
+	#
+	$buttonRestart.AutoSize = $True
+	$buttonRestart.Location = '168, 58'
+	$buttonRestart.Name = 'buttonRestart'
+	$buttonRestart.Size = '79, 24'
+	$buttonRestart.TabIndex = 47
+	$buttonRestart.Text = 'Restart'
+	$buttonRestart.UseCompatibleTextRendering = $True
+	$buttonRestart.UseVisualStyleBackColor = $True
+	$buttonRestart.add_Click($buttonRestart_Click)
+	#
+	# buttonStart
+	#
+	$buttonStart.AutoSize = $True
+	$buttonStart.Location = '84, 58'
+	$buttonStart.Name = 'buttonStart'
+	$buttonStart.Size = '78, 24'
+	$buttonStart.TabIndex = 46
+	$buttonStart.Text = 'Start'
+	$buttonStart.UseCompatibleTextRendering = $True
+	$buttonStart.UseVisualStyleBackColor = $True
+	$buttonStart.add_Click($buttonStart_Click)
+	#
+	# labelServiceName
+	#
+	$labelServiceName.AutoSize = $True
+	$labelServiceName.Location = '154, 7'
+	$labelServiceName.Name = 'labelServiceName'
+	$labelServiceName.Size = '75, 17'
+	$labelServiceName.TabIndex = 45
+	$labelServiceName.Text = 'Service Name'
+	$labelServiceName.UseCompatibleTextRendering = $True
+	#
+	# textbox6
+	#
+	$textbox6.Location = '126, 27'
+	$textbox6.Name = 'textbox6'
+	$textbox6.Size = '121, 20'
+	$textbox6.TabIndex = 44
+	#
+	# labelServerName
+	#
+	$labelServerName.AutoSize = $True
+	$labelServerName.Location = '27, 7'
+	$labelServerName.Name = 'labelServerName'
+	$labelServerName.Size = '71, 17'
+	$labelServerName.TabIndex = 43
+	$labelServerName.Text = 'Server Name'
+	$labelServerName.UseCompatibleTextRendering = $True
+	#
+	# textbox5
+	#
+	$textbox5.Location = '5, 27'
+	$textbox5.Name = 'textbox5'
+	$textbox5.Size = '115, 20'
+	$textbox5.TabIndex = 42
+	#
+	# buttonStop
+	#
+	$buttonStop.AutoSize = $True
+	$buttonStop.Location = '3, 58'
+	$buttonStop.Name = 'buttonStop'
+	$buttonStop.Size = '75, 24'
+	$buttonStop.TabIndex = 38
+	$buttonStop.Text = 'Stop'
+	$buttonStop.UseCompatibleTextRendering = $True
+	$buttonStop.UseVisualStyleBackColor = $True
+	$buttonStop.add_Click($buttonStop_Click)
+	#
+	# tabpage5
+	#
+	$tabpage5.Controls.Add($combobox4)
+	$tabpage5.Controls.Add($buttonInstallSoftwareExamp)
+	$tabpage5.Controls.Add($labelListOfClientPCs)
+	$tabpage5.Location = '4, 22'
+	$tabpage5.Name = 'tabpage5'
+	$tabpage5.Size = '1812, 954'
+	$tabpage5.TabIndex = 4
+	$tabpage5.Text = 'Clients'
+	$tabpage5.UseVisualStyleBackColor = $True
+	#
+	# combobox4
+	#
+	$combobox4.DropDownStyle = 'DropDownList'
+	$combobox4.FormattingEnabled = $True
+	[void]$combobox4.Items.Add('1')
+	[void]$combobox4.Items.Add('2')
+	[void]$combobox4.Items.Add('3')
+	[void]$combobox4.Items.Add('4')
+	[void]$combobox4.Items.Add('5')
+	[void]$combobox4.Items.Add('6')
+	[void]$combobox4.Items.Add('7')
+	[void]$combobox4.Items.Add('8')
+	[void]$combobox4.Items.Add('9')
+	[void]$combobox4.Items.Add('10')
+	$combobox4.Location = '103, 3'
+	$combobox4.Name = 'combobox4'
+	$combobox4.Size = '104, 21'
+	$combobox4.TabIndex = 46
+	$combobox4.add_SelectedIndexChanged($combobox4_SelectedIndexChanged)
+	#
+	# buttonInstallSoftwareExamp
+	#
+	$buttonInstallSoftwareExamp.AutoSize = $True
+	$buttonInstallSoftwareExamp.Location = '40, 28'
+	$buttonInstallSoftwareExamp.Name = 'buttonInstallSoftwareExamp'
+	$buttonInstallSoftwareExamp.Size = '139, 24'
+	$buttonInstallSoftwareExamp.TabIndex = 45
+	$buttonInstallSoftwareExamp.Text = 'Install Software Example'
+	$buttonInstallSoftwareExamp.UseCompatibleTextRendering = $True
+	$buttonInstallSoftwareExamp.UseVisualStyleBackColor = $True
+	$buttonInstallSoftwareExamp.add_Click($buttonInstallSoftwareExamp_Click)
+	#
+	# labelListOfClientPCs
+	#
+	$labelListOfClientPCs.AutoSize = $True
+	$labelListOfClientPCs.Font = 'Microsoft Sans Serif, 8.25pt'
+	$labelListOfClientPCs.Location = '3, 8'
+	$labelListOfClientPCs.Name = 'labelListOfClientPCs'
+	$labelListOfClientPCs.Size = '91, 17'
+	$labelListOfClientPCs.TabIndex = 44
+	$labelListOfClientPCs.Text = 'List of Client PCs'
+	$labelListOfClientPCs.TextAlign = 'MiddleCenter'
+	$labelListOfClientPCs.UseCompatibleTextRendering = $True
+	$labelListOfClientPCs.add_Click($labelListOfClientPCs_Click)
+	$tabpage5.ResumeLayout()
+	$tabpage4.ResumeLayout()
+	$tabpage3.ResumeLayout()
+	$tabpage2.ResumeLayout()
+	$tabpage1.ResumeLayout()
+	$tabcontrol1.ResumeLayout()
+	$form1.ResumeLayout()
+	#endregion Generated Form Code
+
+	#----------------------------------------------
+
+	#Save the initial state of the form
+	$InitialFormWindowState = $form1.WindowState
+	#Init the OnLoad event to correct the initial state of the form
+	$form1.add_Load($Form_StateCorrection_Load)
+	#Clean up the control events
+	$form1.add_FormClosed($Form_Cleanup_FormClosed)
+	#Show the Form
+	return $form1.ShowDialog()
+
+} #End Function
+
+#Call the form
+Show-test3_psf | Out-Null
