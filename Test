@@ -1,0 +1,51 @@
+<# This form was created using POSHGUI.com  a free online gui designer for PowerShell
+.NAME
+    Untitled
+#>
+
+Add-Type -AssemblyName System.Windows.Forms
+[System.Windows.Forms.Application]::EnableVisualStyles()
+
+$Form                            = New-Object system.Windows.Forms.Form
+$Form.ClientSize                 = '400,400'
+$Form.text                       = "Form"
+$Form.TopMost                    = $false
+
+$sdasd                           = New-Object system.Windows.Forms.Button
+$sdasd.text                      = "Restart DMZ Non-Production Servers"
+$sdasd.width                     = 233
+$sdasd.height                    = 30
+$sdasd.location                  = New-Object System.Drawing.Point(10,20)
+$sdasd.Font                      = 'Microsoft Sans Serif,10'
+
+
+
+$Form.controls.AddRange(@($sdasd))
+
+$sdasd.Add_Click({
+Add-Type -AssemblyName System.Windows.Forms 
+$popup = New-Object system.Windows.Forms.Form
+$Label = New-Object System.Windows.Forms.Label
+$Labe2 = New-Object System.Windows.Forms.Label
+$pswdbox = New-Object System.Windows.Forms.TextBox
+$popup.Controls.Add($Label)
+$popup.Controls.Add($pswdbox)
+$popup.Controls.Add($label2)
+$Label.Text = "Restarting Non-Production Servers, Please Wait"
+$Label.AutoSize = $True
+$label2.Location = New-Object System.Drawing.Point(60,45)
+$label2.Text = 'Enter DMZ Password Here'
+$popup.Visible = $True
+$popup.Update()
+$pswdbox.Location = New-Object System.Drawing.Point(60,60)
+$pswdbox.AutoSize = $true
+$pswdbox.AcceptsReturn = $True
+
+#Command(s)
+$DMZNonProdServers = @('143.158.207.211','143.15.207.75','143.158.207.57','143.158.207.217','143.158.207.215','143.158.207.213')
+})
+
+#Hide popup
+$popup.Close()
+
+[void]$Form.ShowDialog()
